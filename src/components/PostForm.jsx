@@ -9,7 +9,7 @@ function PostForm({posts, create}) {
     if (post.title !== '' && post.body !== ''){
       e.preventDefault();
 
-      const newId = posts[posts.length - 1].id + 1;
+      const newId = posts.length != 0 ? posts[posts.length - 1].id + 1 : 1;
       const newPost = {
         ...post, 
         id: newId
