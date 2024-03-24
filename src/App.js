@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './styles/App.css';
 import PostList from './components/PostList';
-import MyButton from './components/UI/button/MyButton';
-import MyInput from './components/UI/input/MyInput';
+import PostForm from './components/PostForm';
+
 
 function App() {
   const [posts, setPosts] = useState([
@@ -13,35 +13,13 @@ function App() {
     {id: 5, title: 'Javascript', body: 'Description'},
   ]);
 
-  const [post, setPost] = useState({title: '', body: ''});
-
-  const addNewPost = (e) => {
-    e.preventDefault();
-
-    const newId = posts[posts.length - 1].id + 1;
-
-    setPosts([...posts, {...post, id: newId}]);
-    setPost({title: '', body: ''});
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost]);
   }
 
   return (
     <div className='App'>
-      <form>
-        {/* Управляемый компонент */}
-        <MyInput 
-          value={post.title}
-          onChange={e => setPost({...post, title: e.target.value})}
-          type='text' 
-          placeholder='Название поста'/>
-
-        <MyInput
-          value={post.body}
-          onChange={e => setPost({...post, body: e.target.value})}
-          type='text'
-          placeholder='Описание поста' />
-
-        <MyButton onClick={addNewPost}>Добавить пост</MyButton>
-      </form>
+      <PostForm create={createPost} posts={posts}/>
       <PostList posts={posts} title={'List 1'}/>
     </div>
   );
