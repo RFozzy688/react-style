@@ -6,15 +6,17 @@ function PostForm({posts, create}) {
   const [post, setPost] = useState({title: '', body: ''});
 
   const addNewPost = (e) => {
-    e.preventDefault();
+    if (post.title !== '' && post.body !== ''){
+      e.preventDefault();
 
-    const newId = posts[posts.length - 1].id + 1;
-    const newPost = {
-      ...post, 
-      id: newId
+      const newId = posts[posts.length - 1].id + 1;
+      const newPost = {
+        ...post, 
+        id: newId
+      }
+      create(newPost);
+      setPost({title: '', body: ''});
     }
-    create(newPost);
-    setPost({title: '', body: ''});
   }
 
   return ( 
