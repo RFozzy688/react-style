@@ -1,4 +1,4 @@
-import MyInput from './UI/select/MySelect';
+import MyInput from './UI/input/MyInput';
 import MySelect from './UI/select/MySelect';
 
 function PostFilter({filter, setFilter}) {
