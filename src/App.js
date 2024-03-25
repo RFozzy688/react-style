@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import './styles/App.css';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
+import MySelect from './components/UI/select/MySelect';
 
 
 function App() {
   const [posts, setPosts] = useState([
-    {id: 1, title: 'Javascript 1', body: 'Description'},
-    {id: 2, title: 'Javascript 2', body: 'Description'},
-    {id: 3, title: 'Javascript 3', body: 'Description'},
-    {id: 4, title: 'Javascript 4', body: 'Description'},
-    {id: 5, title: 'Javascript 5', body: 'Description'},
+    {id: 1, title: 'Javascript 1', body: 'Description 2'},
+    {id: 2, title: 'Javascript 2', body: 'Description 4'},
+    {id: 3, title: 'Javascript 3', body: 'Description 6'},
+    {id: 4, title: 'Javascript 4', body: 'Description 1'},
+    {id: 5, title: 'Javascript 5', body: 'Description 3'},
   ]);
+
+  const [selectedSort, setSelectedSort] = useState('');
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -21,9 +24,26 @@ function App() {
     setPosts(posts.filter(p => p.id !== post.id));
   }
 
+  const sortPosts = (sort) => {
+    setSelectedSort(sort);
+    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])))
+  }
+
   return (
     <div className='App'>
       <PostForm create={createPost} posts={posts}/>
+      <hr style={{margin: '15px 0'}}/>
+      <div>
+        <MySelect
+          value={selectedSort}
+          onChange={sortPosts}
+          defaultValue='Сортировка'
+          options={[
+            {value: 'title', name: 'По названию'},
+            {value: 'body', name: 'По описанию'},
+          ]}/>
+      </div>
+
       {posts.length !== 0
         ? <PostList remove={removePost} posts={posts} title={'List 1'}/>
         : <h1 style={{textAlign: 'center'}}>Посты не найдены!</h1>}
