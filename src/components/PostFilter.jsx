@@ -1,13 +1,16 @@
-function PostFilter() {
+import MyInput from './UI/select/MySelect';
+import MySelect from './UI/select/MySelect';
+
+function PostFilter({filter, setFilter}) {
   return ( 
     <div>
       <MyInput 
         placeholder='Поиск...'
-        value={searchQuary}
-        onChange={e => setSearchQuary(e.target.value)}/>
+        value={filter.query}
+        onChange={e => setFilter({...filter, query: e.target.value})}/>
       <MySelect
-        value={selectedSort}
-        onChange={sortPosts}
+        value={filter.sort}
+        onChange={selectedSort => setFilter({...filter, sort: selectedSort})}
         defaultValue='Сортировка'
         options={[
           {value: 'title', name: 'По названию'},
