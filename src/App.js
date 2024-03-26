@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles/App.css';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
@@ -29,9 +29,11 @@ function App() {
     setPosts(response.data);
   }
 
+  useEffect(() => fetchPosts(), []);
+
   return (
     <div className='App'>
-      <MyButton onClick={fetchPosts}>Get posts</MyButton>
+      {/* <MyButton onClick={fetchPosts}>Get posts</MyButton> */}
       <MyButton style={{marginTop: '30px'}} onClick={() => setModal(true)}>
         Создать пользователя
       </MyButton>
